@@ -1,6 +1,6 @@
 {
 	"songs": [
-		["Remember", "lidi", [200, 200, 200]]
+		["Tutorial", "lidi", [200, 200, 200]]
 	],
 
 	"weekCharacters": [
@@ -11,7 +11,7 @@
 	"weekBackground": "stage",
 
 	"storyName": "Lidi",
-	"weekBefore": "tutorial",
+	"weekBefore": "week6",
 	"weekName": "Week L",
 	"startUnlocked": true,
 

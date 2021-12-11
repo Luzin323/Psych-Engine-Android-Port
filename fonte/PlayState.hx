@@ -189,7 +189,7 @@ class PlayState extends MusicBeatState
 
 	var halloweenBG:BGSprite;
 	var halloweenWhite:BGSprite;
-
+        var ScreenText:FlxText;
 	var phillyCityLights:FlxTypedGroup<BGSprite>;
 	var phillyTrain:BGSprite;
 	var blammedLightsBlack:ModchartSprite;
@@ -2514,6 +2514,28 @@ class PlayState extends MusicBeatState
 				var value:Int = Std.parseInt(value1);
 				if(Math.isNaN(value)) value = 1;
 				gfSpeed = value;
+
+case 'Show text on the screen':
+    var Text:String = value1;
+    var val:Float = Std.parseFloat(value2);
+    ScreenText = new FlxText(0, 0, 0, Text, 40);
+    ScreenText.setFormat("Continuum Bold", 40, FlxColor.WHITE, FlxTextAlign.CENTER, null);
+    ScreenText.scrollFactor.set();
+    ScreenText.screenCenter();
+    ScreenText.alpha = 0;
+    ScreenText.cameras = [camHUD];
+    add(ScreenText);
+    FlxTween.tween(ScreenText, {alpha: 1}, 0.5, {type: FlxTweenType.ONESHOT, ease: FlxEase.quadInOut});
+    new FlxTimer().start(val, function(tmr:FlxTimer) {
+        FlxTween.tween(ScreenText, {alpha: 0}, 0.5, {
+            type: FlxTweenType.ONESHOT, 
+            ease: FlxEase.quadInOut,
+            onComplete: function(twn:FlxTween)
+            {
+                remove(ScreenText);
+            }
+        });
+    });
 
 			case 'Blammed Lights':
 				var lightId:Int = Std.parseInt(value1);

@@ -46,6 +46,7 @@ enum abstract Action(String) to String from String
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
+        var DODGE = "space";
 }
 #else
 @:enum
@@ -79,6 +80,7 @@ abstract Action(String) to String from String
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
+        var DODGE = "space";
 }
 #end
 
@@ -107,6 +109,7 @@ enum Control
 	ACCEPT;
 	BACK;
 	PAUSE;
+        DODGE
 }
 
 enum KeyboardScheme
@@ -151,6 +154,8 @@ class Controls extends FlxActionSet
 	var _back = new FlxActionDigital(Action.BACK);
 	var _pause = new FlxActionDigital(Action.PAUSE);
 	var _reset = new FlxActionDigital(Action.RESET);
+        var _dodge = new FlxActionDigital(Action.DODGE);
+        
 
 	#if (haxe >= "4.0.0")
 	var byName:Map<String, FlxActionDigital> = [];
@@ -301,6 +306,11 @@ class Controls extends FlxActionSet
 	inline function get_RESET()
 		return _reset.check();
 
+        public var DODGE(get, never):Bool;
+
+	inline function get_DODGE()
+		return _dodge.check();
+        
 	#if (haxe >= "4.0.0")
 	public function new(name, scheme = None)
 	{
@@ -334,6 +344,7 @@ class Controls extends FlxActionSet
 		add(_back);
 		add(_pause);
 		add(_reset);
+                add(_dodge);
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -373,6 +384,7 @@ class Controls extends FlxActionSet
 		add(_back);
 		add(_pause);
 		add(_reset);
+                add(_dodge);
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -426,7 +438,8 @@ class Controls extends FlxActionSet
 				inline forEachBound(Control.NOTE_DOWN, (action, state) -> addbuttonuNOTES(action, virtualPad.buttonDown, state));
 				inline forEachBound(Control.NOTE_LEFT, (action, state) -> addbuttonuNOTES(action, virtualPad.buttonLeft, state));
 				inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addbuttonuNOTES(action, virtualPad.buttonRight, state));
-			
+			        inline forEachBound(Control.DODGE, (action, state) -> addbuttonuNOTES(action, virtualPad.buttonDodge, state));
+			        
 			case NONE:
 		}
 
@@ -489,7 +502,8 @@ class Controls extends FlxActionSet
 				inline forEachBound(Control.UI_DOWN, (action, state) -> addbuttonuUI(action, virtualPad.buttonDown, state));
 				inline forEachBound(Control.UI_LEFT, (action, state) -> addbuttonuUI(action, virtualPad.buttonLeft, state));
 				inline forEachBound(Control.UI_RIGHT, (action, state) -> addbuttonuUI(action, virtualPad.buttonRight, state));
-			
+			        inline forEachBound(Control.DODGE, (action, state) -> addbuttonuNOTES(action, virtualPad.buttonDodge, state));
+			        
 			case NONE:
 		}
 
@@ -577,6 +591,7 @@ class Controls extends FlxActionSet
 			case BACK: _back;
 			case PAUSE: _pause;
 			case RESET: _reset;
+                        case DODGE: _dodge;
 		}
 	}
 
@@ -636,6 +651,8 @@ class Controls extends FlxActionSet
 				func(_pause, JUST_PRESSED);
 			case RESET:
 				func(_reset, JUST_PRESSED);
+			case DODGE:
+				func(_dodge, JUST_PRESSED);
 		}
 	}
 
@@ -781,7 +798,8 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.NOTE_DOWN, keysMap.get('note_down'));
 				inline bindKeys(Control.NOTE_LEFT, keysMap.get('note_left'));
 				inline bindKeys(Control.NOTE_RIGHT, keysMap.get('note_right'));
-
+                                inline bindKeys(Control.DODGE, keysMap.get('space'));
+                                
 				inline bindKeys(Control.ACCEPT, keysMap.get('accept'));
 				inline bindKeys(Control.BACK, keysMap.get('back'));
 				inline bindKeys(Control.PAUSE, keysMap.get('pause'));
@@ -831,6 +849,8 @@ class Controls extends FlxActionSet
 				bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
 				bindKeys(Control.RESET, [R]);
+				bindKeys(Control.DODGE, [SPACE]);
+
 			case Duo(true):
 				bindKeys(Control.UI_UP, [W]);
 				bindKeys(Control.UI_DOWN, [S]);
@@ -934,7 +954,9 @@ class Controls extends FlxActionSet
 			Control.NOTE_LEFT => [DPAD_LEFT, LEFT_STICK_DIGITAL_LEFT],
 			Control.NOTE_RIGHT => [DPAD_RIGHT, LEFT_STICK_DIGITAL_RIGHT],
 			Control.PAUSE => [START],
-			Control.RESET => [Y]
+			Control.RESET => [Y],
+			Control.DODGE => [SPACE]
+
 		]);
 		#else
 		addGamepadLiteral(id, [
@@ -952,6 +974,8 @@ class Controls extends FlxActionSet
 			Control.PAUSE => [START],
 			//Swap Y and X for switch
 			Control.RESET => [Y],
+			Control.DODGE => [SPACE]
+
 		]);
 		#end
 	}

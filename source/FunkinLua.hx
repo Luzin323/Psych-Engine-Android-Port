@@ -538,7 +538,8 @@ class FunkinLua {
 				case 'down': key = lePlayState.getControl('NOTE_DOWN');
 				case 'up': key = lePlayState.getControl('NOTE_UP');
 				case 'right': key = lePlayState.getControl('NOTE_RIGHT');
-			}       case 'space': key = FlxG.keys.pressed.SPACE;
+			        case 'space': key = FlxG.keys.pressed.SPACE;
+                        }
 			return key;
 		});
 		Lua_helper.add_callback(lua, "keyReleased", function(name:String) {

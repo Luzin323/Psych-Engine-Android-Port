@@ -109,7 +109,7 @@ enum Control
 	ACCEPT;
 	BACK;
 	PAUSE;
-        DODGE
+        DODGE;
 }
 
 enum KeyboardScheme

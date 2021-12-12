@@ -335,6 +335,8 @@ class PlayState extends MusicBeatState
 					curStage = 'school';
 				case 'thorns':
 					curStage = 'schoolEvil';
+				case 'remember':
+					curStage = 'blank';
 				default:
 					curStage = 'stage';
 			}
@@ -639,6 +641,14 @@ class PlayState extends MusicBeatState
 					bg.antialiasing = false;
 					add(bg);
 				}
+			        case 'blank': //Week L
+				var bg:BGSprite = new BGSprite('blankback', -600, -200, 0.9, 0.9);
+				add(bg);
+
+				var stageFront:BGSprite = new BGSprite('blankfront', -650, 600, 0.9, 0.9);
+				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+				stageFront.updateHitbox();
+				add(stageFront);
 		}
 
 		if(isPixelStage) {

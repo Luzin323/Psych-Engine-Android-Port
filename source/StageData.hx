@@ -40,6 +40,8 @@ class StageData {
 					stage = 'school';
 				case 'thorns':
 					stage = 'schoolEvil';
+                                case 'remember':
+                                        stage = 'blank';
 				default:
 					stage = 'stage';
 			}

@@ -82,7 +82,7 @@
 	"image": "characters/Lidi",
 	"position": [
 		0,
-		220
+		235
 	],
 	"healthicon": "lidi",
 	"flip_x": false,
@@ -95,6 +95,6 @@
 		-80,
 		0
 	],
-	"sing_duration": 4,
+	"sing_duration": 2,
 	"scale": 1
 }
